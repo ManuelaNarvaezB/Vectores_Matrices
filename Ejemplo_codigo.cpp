@@ -1,27 +1,35 @@
 #include <iostream>
+#include <vector>
+#include <iomanip>
+
 using namespace std;
 
 int main() {
-    // 1. TRABAJO CON VECTORES (1D)
-    int n;
-    cout << "--- TRABAJO CON VECTORES ---" << endl;
-    cout << "Ingrese el tamaño del vector: ";
-    cin >> n;
+    // Matriz (3 estudiantes x 3 evaluaciones) usando vector de vectores
+    vector<vector<double>> notas = {
+        {4.5, 3.8, 5.0},  // Estudiante 1
+        {3.0, 3.5, 4.0},  // Estudiante 2
+        {5.0, 4.8, 4.9}   // Estudiante 3
+    };
 
-    // Se define un tamaño máximo estático para evitar advertencias de compilador
-    int vector[100]; 
+    // Vector de pesos (30%, 30%, 40%)
+    vector<double> pesos = {0.30, 0.30, 0.40};
 
-    // Llenado del vector
-    cout << "\nIngrese los " << n << " elementos del vector:" << endl;
-    for (int i = 0; i < n; i++) {
-        cout << "Elemento [" << i << "]: ";
-        cin >> vector[i];
+    // Vector resultante inicializado con el tamaño de los estudiantes en 0.0
+    vector<double> notas_finales(notas.size(), 0.0);
+
+    // Multiplicación de matriz por vector
+    for (size_t i = 0; i < notas.size(); i++) {
+        for (size_t j = 0; j < pesos.size(); j++) {
+            notas_finales[i] += notas[i][j] * pesos[j];
+        }
     }
 
-    // Impresión del vector
-    cout << "\nLos elementos del vector son: [ ";
-    for (int i = 0; i < n; i++) {
-        cout << vector[i] << " ";
+    // Imprimir el vector resultante con 2 decimales
+    cout << fixed << setprecision(2);
+    cout << "Vector de notas finales: [ ";
+    for (double nota : notas_finales) {
+        cout << nota << " ";
     }
     cout << "]" << endl;
 
